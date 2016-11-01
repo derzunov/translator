@@ -1,3 +1,5 @@
+// Also you can open ../index.html in browser
+
 var dictionary_1 = {
     key_0: "",
     key_1: "Первое словочочетание",
