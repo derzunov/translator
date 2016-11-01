@@ -41,5 +41,4 @@ nbproject
 .idea
 .node_history
 .npmrc
-dist/translator-bundle.js
 lib
