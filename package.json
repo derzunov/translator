@@ -1,5 +1,5 @@
 {
-  "name": "translator",
+  "name": "translatr",
   "version": "0.0.1",
   "description": "translate function based on dictionaries and pluralizer",
   "main": "lib/translator.js",
@@ -32,5 +32,13 @@
   },
   "devDependencies": {
     "watchify": "^3.7.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derzunov/translator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/derzunov/translator/issues"
+  },
+  "homepage": "https://github.com/derzunov/translator#readme"
 }
