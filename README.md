@@ -21,3 +21,7 @@ var string_2 = translate( dictionary, 'ru-RU', 'key_2', 1 ); // 1 кошка
 var string_3 = translate( dictionary, 'ru-RU', 'key_2', 3 ); // 2 кошки
 var string_4 = translate( dictionary, 'ru-RU', 'key_2', 7 ); // 7 кошек
 ```
+##Using compiled (example)
+
+in progress...
+
