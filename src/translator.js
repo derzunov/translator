@@ -64,7 +64,6 @@ const translate = function( currentLangDictionary, languageCode, key, number ) {
         }
 
     } else {
-        //console.error( "i18n: No value for key " + key + " in dictionary " + currentLangDictionary );
         console.error( `i18n: No value for key ${ key } in dictionary ${ currentLangDictionary }` );
         return `<No ${ key } key for ${ languageCode }>`;
     }
