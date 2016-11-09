@@ -1,6 +1,6 @@
 {
   "name": "translatr",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "translate function based on dictionaries and pluralizer",
   "main": "lib/translator.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "author": "derzunov <derzunov.work@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "pluralizr": "^0.0.4",
+    "pluralizr": "^0.1.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
