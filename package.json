@@ -4,11 +4,12 @@
   "description": "translate function based on dictionaries and pluralizer",
   "main": "lib/translator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "compile-dev": "watchify src/global.js -o dist/translator-bundle.js -t [ babelify --presets [ es2015 ] ]",
     "compile": "babel --presets es2015 src -d lib",
     "bundle": "browserify src/global.js -o dist/translator-bundle.js -t [ babelify --presets [ es2015 ] ]",
-    "prepublish": "npm run bundle && npm run compile"
+    "prepublish": "npm run bundle && npm run compile",
+    "build": "npm run bundle && npm run compile"
   },
   "keywords": [
     "translate",
