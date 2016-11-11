@@ -1,7 +1,7 @@
 # translator
 [![Build Status](https://travis-ci.org/derzunov/translator.svg?branch=master)](https://travis-ci.org/derzunov/translator)
-[![npm](https://img.shields.io/npm/dt/translatr.svg)]()
-[![npm](https://img.shields.io/npm/v/translatr.svg)]()
+[![npm](https://img.shields.io/npm/dt/translatr.svg)](https://www.npmjs.com/package/translatr)
+[![npm](https://img.shields.io/npm/v/translatr.svg)](https://www.npmjs.com/package/translatr)
 
 
 ### Supported languages list with expected codes for pluralize mechanics switching:
