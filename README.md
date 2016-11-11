@@ -1,4 +1,5 @@
 # translator
+[![Build Status](https://travis-ci.org/derzunov/translator.svg?branch=master)](https://travis-ci.org/derzunov/translator)
 
 ### Supported languages list with expected codes for pluralize mechanics switching:
 
