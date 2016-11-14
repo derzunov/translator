@@ -7,6 +7,3 @@
 .travis.yml
 
 node_modules/
-
-gulpfile.js
-test.js
