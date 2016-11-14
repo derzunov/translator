@@ -78,6 +78,11 @@ var pluralize = function( languageCode, number, titles ) {
 
         case 'ru-RU':
         case 'ru':
+        case 'be':
+        case 'bs':
+        case 'hr':
+        case 'sr':
+        case 'uk':
             // Default ru-RU for example - 1 штука, 3 штуки, 5 штук
             return pluralFormThreeFormsDefault( number, titles );
             break;
@@ -89,6 +94,7 @@ var pluralize = function( languageCode, number, titles ) {
 };
 
 module.exports = pluralize;
+
 },{}],2:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
