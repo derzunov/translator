@@ -17,6 +17,11 @@
 - Arabic ( ar-AR, ar )
 - Turkish ( tr )
 - Occitan ( oc )
+- Belarusian ( be )
+- Bosnian ( bs )
+- Croatian ( hr )
+- Serbian ( sr )
+- Ukrainian ( uk )
 - ...
 
 ##Using NPM
