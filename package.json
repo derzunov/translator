@@ -1,6 +1,6 @@
 {
   "name": "translatr",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "translate function based on dictionaries and pluralizer",
   "main": "lib/translator.js",
   "scripts": {
