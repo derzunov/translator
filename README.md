@@ -24,16 +24,16 @@
 - Ukrainian ( uk )
 - ...
 
-## Using NPM
+## Install ( Using NPM )
 
-**Console**
+### Console
 
 ```javascript
 npm i --save translatr
 ```
-**In your code**
+### In your code
 
-### Russian
+#### Russian
 ```javascript
 import translate from 'translatr'
 
@@ -48,7 +48,7 @@ var string_3 = translate( dictionary, 'ru', 'key_2', 3 ); // 2 кошки
 var string_4 = translate( dictionary, 'ru', 'key_2', 7 ); // 7 кошек
 ```
 
-### Polish
+#### Polish
 
 ```javascript
 import translate from 'translatr'
@@ -64,7 +64,7 @@ var string_3 = translate( dictionary, 'pl', 'key_2', 3 ); // 3 godziny
 var string_4 = translate( dictionary, 'pl', 'key_2', 31 ); // 31 godzin
 ```
 
-### English
+#### English
 
 ```javascript
 import translate from 'translatr'
@@ -80,7 +80,7 @@ var string_3 = translate( dictionary, 'en', 'key_2', 1 ); // 1 hours
 var string_4 = translate( dictionary, 'en', 'key_2', 7 ); // 7 hours
 ```
 
-### French
+#### French
 
 ```javascript
 import translate from 'translatr'
