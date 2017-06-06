@@ -6,7 +6,6 @@
  */
 
 import pluralize from 'pluralizr';
-import _ from 'underscore';
 
 const pluralLocalize = function( languageCode, pluralStrings, number ) {
 
@@ -17,7 +16,7 @@ const pluralLocalize = function( languageCode, pluralStrings, number ) {
             return pluralStrings.replace( "$Count", number );
 
         case 'object':
-            return _.reduce( pluralStrings, ( result, piece ) => {
+            return pluralStrings.reduce(( result, piece ) => {
 
                 switch ( typeof piece ) {
 

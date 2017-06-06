@@ -22,8 +22,7 @@
   "author": "derzunov <derzunov.work@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "pluralizr": "^0.2.3",
-    "underscore": "^1.8.3"
+    "pluralizr": "^0.2.3"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
