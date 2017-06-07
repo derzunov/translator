@@ -35,15 +35,15 @@ const pluralLocalize = function( languageCode, pluralStrings, numbers ) {
         case 'string':
             let match = pluralStrings.match(/\[(.*?\])\s*\]/g)
             if ( match ) {
-              match.forEach((pluralArray) => {
-              	let a = pluralArray.match(/\[.*(\[(.*?)\])\s*\]/)
-                let b = pluralArray.replace(a[1], '')
-                let c = b.split(',')
-                console.log([c[0], c[1], a[2].split(',')])
-                pluralStrings = pluralStrings.replace(pluralArray, pluralLocalize( languageCode, [c[0], c[1], a[2].split(',')], [numbers.shift()]))
-              })
+              match.forEach((matchData) => {
+                let pluralMatch = matchData.match(/\[.*(\[(.*?)\])\s*\]/);
+                let pluralObject = pluralMatch[2].split(",").map((text) => { return text.replace(/\'|\"|\s+/g, '') });
+                let pluralArray = pluralMatch[0].split(",");
+                let count = pluralArray[0].replace(/\[|\s+|\"|\'/g, '');
+                let seporator = pluralArray[1].match(/\'([^\']*)\'|\"([^\"]*)/)[2];
+                pluralStrings = pluralStrings.replace(matchData, pluralLocalize( languageCode, [count, seporator, pluralObject], [numbers.shift()]));
+              });
             }
-            //let wordPattern = /\'([^\']*)\'|\"([^\"]*)|(\w+)\"/g
 
             // If no need in forms, but we want to replace "$Count" with number
             return pluralStrings.replace( "$Count", number );

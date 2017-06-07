@@ -3,7 +3,7 @@ import translate from '../src/translator'
 describe('translater nested dictionary', () => {
   const dictionary = {
     level1: {
-      plural1: 'bla bla [ "$count", " ", [ "hour", "hours"] ] foo foo',
+      plural1: 'My cat kill [ "$count", " ", [ "mouse", "mice"] ] and [$count," ",["bird","birds"]] today',
       level2: {
         value1: 'nested value 1',
         value2: 'nested value 2',
@@ -13,7 +13,7 @@ describe('translater nested dictionary', () => {
   }
 
   it('should return plural form in string', () => {
-    expect( translate(dictionary, 'en', 'level1.plural1', 1)).toEqual( "bla bla 1 hour foo foo" )
+    expect( translate(dictionary, 'en', 'level1.plural1', 1, 2)).toEqual( "My cat kill 1 mouse and 2 birds today" )
   })
 
 })
