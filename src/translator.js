@@ -26,11 +26,25 @@ const getValue = function( currentLangDictionary, key ) {
       return value;
 };
 
-const pluralLocalize = function( languageCode, pluralStrings, number ) {
+const pluralLocalize = function( languageCode, pluralStrings, numbers ) {
+
+    let number = numbers[0];
 
     switch ( typeof pluralStrings ) {
 
         case 'string':
+            let match = pluralStrings.match(/\[(.*?\])\s*\]/g)
+            if ( match ) {
+              match.forEach((pluralArray) => {
+              	let a = pluralArray.match(/\[.*(\[(.*?)\])\s*\]/)
+                let b = pluralArray.replace(a[1], '')
+                let c = b.split(',')
+                console.log([c[0], c[1], a[2].split(',')])
+                pluralStrings = pluralStrings.replace(pluralArray, pluralLocalize( languageCode, [c[0], c[1], a[2].split(',')], [numbers.shift()]))
+              })
+            }
+            //let wordPattern = /\'([^\']*)\'|\"([^\"]*)|(\w+)\"/g
+
             // If no need in forms, but we want to replace "$Count" with number
             return pluralStrings.replace( "$Count", number );
 
@@ -62,7 +76,7 @@ const pluralLocalize = function( languageCode, pluralStrings, number ) {
     }
 };
 
-const translate = function( currentLangDictionary, languageCode, key, number ) {
+const translate = function( currentLangDictionary, languageCode, key, ...numbers ) {
 
     if ( languageCode === "keys" ) {
         return key; // If we want to see keys without translate
@@ -77,12 +91,12 @@ const translate = function( currentLangDictionary, languageCode, key, number ) {
 
     if ( value ) {
 
-        if ( !number && number !== 0 ) {
+        if ( numbers && numbers.length > 0 ) {
+            // Use pluralize mechanics
+            return pluralLocalize(languageCode, value, numbers);
+        } else {
             // Just take a string from dictionary
             return value;
-        } else {
-            // Use pluralize mechanics
-            return pluralLocalize(languageCode, value, number);
         }
 
     } else {
