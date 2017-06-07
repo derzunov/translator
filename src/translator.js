@@ -7,6 +7,25 @@
 
 import pluralize from 'pluralizr';
 
+const getValue = function( currentLangDictionary, key ) {
+
+      if ( key in currentLangDictionary ) {
+            return currentLangDictionary[key];
+      }
+
+      let keys = key.split('.');
+      let value = currentLangDictionary;
+
+      while (keys.length > 0) {
+            key = keys.shift();
+            value = value[key];
+
+            if (value == undefined) break;
+      }
+
+      return value;
+};
+
 const pluralLocalize = function( languageCode, pluralStrings, number ) {
 
     switch ( typeof pluralStrings ) {
@@ -52,14 +71,18 @@ const translate = function( currentLangDictionary, languageCode, key, number ) {
     if ( !currentLangDictionary ) {
         console.error( "i18n: localize: no dictionary" );
         return "<i18n Error>";
-    } else if ( currentLangDictionary[key] || currentLangDictionary[key] === '' ) {
+    }
+
+    let value = getValue( currentLangDictionary, key );
+
+    if ( value ) {
 
         if ( !number && number !== 0 ) {
             // Just take a string from dictionary
-            return currentLangDictionary[key];
+            return value;
         } else {
             // Use pluralize mechanics
-            return pluralLocalize(languageCode, currentLangDictionary[key], number);
+            return pluralLocalize(languageCode, value, number);
         }
 
     } else {
