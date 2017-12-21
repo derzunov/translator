@@ -84,7 +84,7 @@ var string_4 = translate( dictionary, 'en', 'key_2', 7 ); // 7 hours
 import translate from 'translatr'
 
 var dictionary = {
-  key_1: "Ayant risqué une fois-on peut rester heureux toute la vie",
+  key_1: "Ayant risqué une fois, on peut rester heureux toute la vie",
   key_2: [ "$count", " ", [ "heure", "heures"] ]
 }
 
