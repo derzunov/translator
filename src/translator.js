@@ -7,11 +7,44 @@
 
 import pluralize from 'pluralizr';
 
-const pluralLocalize = function( languageCode, pluralStrings, number ) {
+const getValue = function( currentLangDictionary, key ) {
+
+      if ( key in currentLangDictionary ) {
+            return currentLangDictionary[key];
+      }
+
+      let keys = key.split('.');
+      let value = currentLangDictionary;
+
+      while (keys.length > 0) {
+            key = keys.shift();
+            value = value[key];
+
+            if (value == undefined) break;
+      }
+
+      return value;
+};
+
+const pluralLocalize = function( languageCode, pluralStrings, numbers ) {
+
+    let number = numbers[0];
 
     switch ( typeof pluralStrings ) {
 
         case 'string':
+            let match = pluralStrings.match(/\[(.*?\])\s*\]/g)
+            if ( match ) {
+              match.forEach((matchData) => {
+                let pluralMatch = matchData.match(/\[.*(\[(.*?)\])\s*\]/);
+                let pluralObject = pluralMatch[2].split(",").map((text) => { return text.replace(/\'|\"|\s+/g, '') });
+                let pluralArray = pluralMatch[0].split(",");
+                let count = pluralArray[0].replace(/\[|\s+|\"|\'/g, '');
+                let seporator = pluralArray[1].match(/\'([^\']*)\'|\"([^\"]*)/)[2];
+                pluralStrings = pluralStrings.replace(matchData, pluralLocalize( languageCode, [count, seporator, pluralObject], [numbers.shift()]));
+              });
+            }
+
             // If no need in forms, but we want to replace "$Count" with number
             return pluralStrings.replace( "$Count", number );
 
@@ -43,7 +76,7 @@ const pluralLocalize = function( languageCode, pluralStrings, number ) {
     }
 };
 
-const translate = function( currentLangDictionary, languageCode, key, number ) {
+const translate = function( currentLangDictionary, languageCode, key, ...numbers ) {
 
     if ( languageCode === "keys" ) {
         return key; // If we want to see keys without translate
@@ -52,14 +85,18 @@ const translate = function( currentLangDictionary, languageCode, key, number ) {
     if ( !currentLangDictionary ) {
         console.error( "i18n: localize: no dictionary" );
         return "<i18n Error>";
-    } else if ( currentLangDictionary[key] || currentLangDictionary[key] === '' ) {
+    }
 
-        if ( !number && number !== 0 ) {
-            // Just take a string from dictionary
-            return currentLangDictionary[key];
-        } else {
+    let value = getValue( currentLangDictionary, key );
+
+    if ( value ) {
+
+        if ( numbers && numbers.length > 0 ) {
             // Use pluralize mechanics
-            return pluralLocalize(languageCode, currentLangDictionary[key], number);
+            return pluralLocalize(languageCode, value, numbers);
+        } else {
+            // Just take a string from dictionary
+            return value;
         }
 
     } else {
