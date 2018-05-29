@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 /*!
  * pluralizer <https://github.com/derzunov/pluralizer>
  *
@@ -126,11 +126,46 @@ var _pluralizr2 = _interopRequireDefault(_pluralizr);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var pluralLocalize = function pluralLocalize(languageCode, pluralStrings, number) {
+var getValue = function getValue(currentLangDictionary, key) {
+
+    if (key in currentLangDictionary) {
+        return currentLangDictionary[key];
+    }
+
+    var keys = key.split('.');
+    var value = currentLangDictionary;
+
+    while (keys.length > 0) {
+        key = keys.shift();
+        value = value[key];
+
+        if (value == undefined) break;
+    }
+
+    return value;
+};
+
+var pluralLocalize = function pluralLocalize(languageCode, pluralStrings, numbers) {
+
+    var number = numbers[0];
 
     switch (typeof pluralStrings === 'undefined' ? 'undefined' : _typeof(pluralStrings)) {
 
         case 'string':
+            var match = pluralStrings.match(/\[(.*?\])\s*\]/g);
+            if (match) {
+                match.forEach(function (matchData) {
+                    var pluralMatch = matchData.match(/\[.*(\[(.*?)\])\s*\]/);
+                    var pluralObject = pluralMatch[2].split(",").map(function (text) {
+                        return text.replace(/\'|\"|\s+/g, '');
+                    });
+                    var pluralArray = pluralMatch[0].split(",");
+                    var count = pluralArray[0].replace(/\[|\s+|\"|\'/g, '');
+                    var seporator = pluralArray[1].match(/\'([^\']*)\'|\"([^\"]*)/)[2];
+                    pluralStrings = pluralStrings.replace(matchData, pluralLocalize(languageCode, [count, seporator, pluralObject], [numbers.shift()]));
+                });
+            }
+
             // If no need in forms, but we want to replace "$Count" with number
             return pluralStrings.replace("$Count", number);
 
@@ -162,7 +197,7 @@ var pluralLocalize = function pluralLocalize(languageCode, pluralStrings, number
     }
 };
 
-var translate = function translate(currentLangDictionary, languageCode, key, number) {
+var translate = function translate(currentLangDictionary, languageCode, key) {
 
     if (languageCode === "keys") {
         return key; // If we want to see keys without translate
@@ -171,14 +206,21 @@ var translate = function translate(currentLangDictionary, languageCode, key, num
     if (!currentLangDictionary) {
         console.error("i18n: localize: no dictionary");
         return "<i18n Error>";
-    } else if (currentLangDictionary[key] || currentLangDictionary[key] === '') {
+    }
 
-        if (!number && number !== 0) {
-            // Just take a string from dictionary
-            return currentLangDictionary[key];
-        } else {
+    var value = getValue(currentLangDictionary, key);
+
+    if (value) {
+        for (var _len = arguments.length, numbers = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+            numbers[_key - 3] = arguments[_key];
+        }
+
+        if (numbers && numbers.length > 0) {
             // Use pluralize mechanics
-            return pluralLocalize(languageCode, currentLangDictionary[key], number);
+            return pluralLocalize(languageCode, value, numbers);
+        } else {
+            // Just take a string from dictionary
+            return value;
         }
     } else {
         console.error('i18n: No value for key ' + key + ' in dictionary', currentLangDictionary);
