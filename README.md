@@ -37,13 +37,19 @@ import translate from 'translatr'
 
 var dictionary = {
   key_1: "Первый текст",
-  key_2: [ "$count", " ", [ "кошка", "кошки", "кошек" ] ]
+  key_2: [ "$count", " ", [ "кошка", "кошки", "кошек" ] ],
+  key_3: {
+    nested_1: 'Привет!'
+    nested_2: [ "$count", " ", [ "котёнок", "котёнка", "котят" ] ]
+  }
 }
 
 var string_1 = translate( dictionary, 'ru', 'key_1' ); // Первый текст
 var string_2 = translate( dictionary, 'ru', 'key_2', 1 ); // 1 кошка
 var string_3 = translate( dictionary, 'ru', 'key_2', 3 ); // 2 кошки
 var string_4 = translate( dictionary, 'ru', 'key_2', 7 ); // 7 кошек
+var string_5 = translate( dictionary, 'ru', 'key_3.nested_1' ); // Привет!
+var string_6 = translate( dictionary, 'ru', 'key_3.nested_2', 15 ); // 15 котят
 ```
 
 ### Polish
@@ -53,13 +59,19 @@ import translate from 'translatr'
 
 var dictionary = {
   key_1: "Prosze, dwa bilety drugiej klasy do Warszawy.",
-  key_2: [ "$count", " ", [ "godzina", "godziny", "godzin" ] ]
+  key_2: [ "$count", " ", [ "godzina", "godziny", "godzin" ] ],
+  key_3: {
+    nested_1: 'Cześć!'
+    nested_2: [ "$count", " ", [ "godzina", "godziny", "godzin" ] ]
+  }
 }
 
 var string_1 = translate( dictionary, 'pl', 'key_1' ); // Prosze, dwa bilety drugiej klasy do Warszawy.
 var string_2 = translate( dictionary, 'pl', 'key_2', 1 ); // 1 godzina
 var string_3 = translate( dictionary, 'pl', 'key_2', 3 ); // 3 godziny
 var string_4 = translate( dictionary, 'pl', 'key_2', 31 ); // 31 godzin
+var string_5 = translate( dictionary, 'pl', 'key_3.nested_1' ); // Cześć!
+var string_6 = translate( dictionary, 'pl', 'key_3.nested_2', 41 ); // 41 godzin
 ```
 
 ### English
@@ -69,13 +81,19 @@ import translate from 'translatr'
 
 var dictionary = {
   key_1: "First text",
-  key_2: [ "$count", " ", [ "hour", "hours"] ]
+  key_2: [ "$count", " ", [ "hour", "hours"] ],
+  key_3: {
+    nested_1: 'Hello!'
+    nested_2: [ "$count", " ", [ "kitten", "kittens" ] ]
+  }
 }
 
 var string_1 = translate( dictionary, 'en', 'key_1' ); // First text
 var string_2 = translate( dictionary, 'en', 'key_2', 0 ); // 0 hours
 var string_3 = translate( dictionary, 'en', 'key_2', 1 ); // 1 hours
 var string_4 = translate( dictionary, 'en', 'key_2', 7 ); // 7 hours
+var string_5 = translate( dictionary, 'en', 'key_3.nested_1' ); // Hello!
+var string_6 = translate( dictionary, 'en', 'key_3.nested_2', 3 ); // 3 kittens
 ```
 
 ### French
@@ -85,13 +103,19 @@ import translate from 'translatr'
 
 var dictionary = {
   key_1: "Ayant risqué une fois, on peut rester heureux toute la vie",
-  key_2: [ "$count", " ", [ "heure", "heures"] ]
+  key_2: [ "$count", " ", [ "heure", "heures"] ],
+  key_3: {
+    nested_1: 'Bonjour!'
+    nested_2: [ "$count", " ", [ "heure", "heures"] ]
+  }
 }
 
 var string_1 = translate( dictionary, 'fr', 'key_1' ); // Ayant risqué une fois-on peut rester heureux toute la vie
 var string_2 = translate( dictionary, 'fr', 'key_2', 0 ); // 0 heure
 var string_3 = translate( dictionary, 'fr', 'key_2', 1 ); // 1 heure
 var string_4 = translate( dictionary, 'fr', 'key_2', 7 ); // 7 heures
+var string_5 = translate( dictionary, 'en', 'key_3.nested_1' ); // Bonjour!
+var string_6 = translate( dictionary, 'en', 'key_3.nested_2', 3 ); // 5 heures
 ```
 
 ## React/Redux i18n solution
