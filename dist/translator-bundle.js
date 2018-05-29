@@ -116,7 +116,7 @@ Object.defineProperty(exports, "__esModule", {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*!
                                                                                                                                                                                                                                                                                * translator <https://github.com/derzunov/translator>
                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                               * Copyright (c) 2016, Dmitry Erzunov.
+                                                                                                                                                                                                                                                                               * Copyright (c) 2018, Dmitry Erzunov.
                                                                                                                                                                                                                                                                                * Licensed under the MIT License.
                                                                                                                                                                                                                                                                                */
 
@@ -125,6 +125,8 @@ var _pluralizr = require('pluralizr');
 var _pluralizr2 = _interopRequireDefault(_pluralizr);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ERROR_STRING = '!!! i18n Error !!!';
 
 var getValue = function getValue(currentLangDictionary, key) {
 
@@ -139,7 +141,7 @@ var getValue = function getValue(currentLangDictionary, key) {
         key = keys.shift();
         value = value[key];
 
-        if (value == undefined) break;
+        if (value === undefined) break;
     }
 
     return value;
@@ -156,20 +158,26 @@ var pluralLocalize = function pluralLocalize(languageCode, pluralStrings, number
             if (match) {
                 match.forEach(function (matchData) {
                     var pluralMatch = matchData.match(/\[.*(\[(.*?)\])\s*\]/);
-                    var pluralObject = pluralMatch[2].split(",").map(function (text) {
+                    var pluralObject = pluralMatch[2].split(',').map(function (text) {
                         return text.replace(/\'|\"|\s+/g, '');
                     });
-                    var pluralArray = pluralMatch[0].split(",");
+                    var pluralArray = pluralMatch[0].split(',');
                     var count = pluralArray[0].replace(/\[|\s+|\"|\'/g, '');
-                    var seporator = pluralArray[1].match(/\'([^\']*)\'|\"([^\"]*)/)[2];
-                    pluralStrings = pluralStrings.replace(matchData, pluralLocalize(languageCode, [count, seporator, pluralObject], [numbers.shift()]));
+                    var separator = pluralArray[1].match(/\'([^\']*)\'|\"([^\"]*)/)[2];
+                    pluralStrings = pluralStrings.replace(matchData, pluralLocalize(languageCode, [count, separator, pluralObject], [numbers.shift()]));
                 });
             }
 
             // If no need in forms, but we want to replace "$Count" with number
-            return pluralStrings.replace("$Count", number);
+            return pluralStrings.replace('$Count', number);
 
         case 'object':
+
+            if (typeof pluralStrings.reduce !== 'function') {
+                console.error('i18n: the value of the key is an object. Expected values: string or array');
+                return ERROR_STRING;
+            }
+
             return pluralStrings.reduce(function (result, piece) {
 
                 switch (typeof piece === 'undefined' ? 'undefined' : _typeof(piece)) {
@@ -190,22 +198,22 @@ var pluralLocalize = function pluralLocalize(languageCode, pluralStrings, number
                 }
                 return result;
             }, '');
-            break;
+
         default:
-            console.error("Ключ переданный в PluralLocalize не является ни строкой ни объектом. Код языка " + languageCode + ", строка из ключа: " + pluralStrings);
-            return '<i18n Error: ' + languageCode + ' | ' + pluralStrings + '>';
+            console.error('i18n: The key passed into PluralLocalize is not a string or array. Language code ' + languageCode + ', value of key: ' + pluralStrings);
+            return ERROR_STRING;
     }
 };
 
 var translate = function translate(currentLangDictionary, languageCode, key) {
 
-    if (languageCode === "keys") {
+    if (languageCode === 'keys') {
         return key; // If we want to see keys without translate
     }
 
     if (!currentLangDictionary) {
-        console.error("i18n: localize: no dictionary");
-        return "<i18n Error>";
+        console.error('i18n: translate: no dictionary');
+        return ERROR_STRING;
     }
 
     var value = getValue(currentLangDictionary, key);
@@ -224,7 +232,7 @@ var translate = function translate(currentLangDictionary, languageCode, key) {
         }
     } else {
         console.error('i18n: No value for key ' + key + ' in dictionary', currentLangDictionary);
-        return '<No ' + key + ' key for ' + languageCode + '>';
+        return ERROR_STRING;
     }
 };
 

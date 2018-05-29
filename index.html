@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <h1>Translator</h1>
-        
+
         <section class="col-md-6">
             <h3>Russian section</h3>
             <div class="form-inline">
@@ -30,17 +30,33 @@
     key_0: "",
     key_1: "Первое словочочетание",
     key_2: "Число после двоеточия: $Count",
-    key_3: [ [ "Пришла", "Пришли", "Пришло" ], " ", "$count", " ", [ "кошка", "кошки", "кошек" ] ]
+    key_3: [ [ "Пришла", "Пришли", "Пришло" ], " ", "$count", " ", [ "кошка", "кошки", "кошек" ] ],
+    key_4: {
+        val_1: 'Белый котёнок',
+        val_2: 'Чёрный котенок',
+        val_3: [ [ 'Пришёл', 'Пришли', 'Пришло' ], ' ', '$count', ' ', [ 'котёнок', 'котёнка', 'котят' ] ],
+    }
 };</pre>
             <br>
             <pre>text_1 = translate( dictionary_1, 'ru-RU', 'key_1' );
 text_2 = translate( dictionary_1, 'ru-RU', 'key_2', num );
-text_3 = translate( dictionary_1, 'ru-RU', 'key_3', num );</pre>
+text_3 = translate( dictionary_1, 'ru-RU', 'key_3', num );
+text_4_1 = translate( dictionary_1, 'ru-RU', 'key_4.val_1' );
+text_4_2 = translate( dictionary_1, 'ru-RU', 'key_4.val_2' );
+text_4_3 = translate( dictionary_1, 'ru-RU', 'key_4.val_3', num );</pre>
 
             <h3>Result</h3>
             <p id="ru-key-1-value" ></p>
             <p id="ru-key-2-value" ></p>
             <p id="ru-key-3-value" ></p>
+
+            <h4>Nested values example:</h4>
+
+            <div style="padding-left: 15px" >
+                <p id="ru-key-4-1-value" ></p>
+                <p id="ru-key-4-2-value" ></p>
+                <p id="ru-key-4-3-value" ></p>
+            </div>
         </section>
 
         <section class="col-md-6">
@@ -56,20 +72,37 @@ text_3 = translate( dictionary_1, 'ru-RU', 'key_3', num );</pre>
     key_0: "",
     key_1: "First text",
     key_2: "The number after: $Count",
-    key_3: [ [ "There is only", "There are" ], " ", "$count", " ", [ "cat", "cats" ] ]
+    key_3: [ [ "There is only", "There are" ], " ", "$count", " ", [ "cat", "cats" ] ],
+    key_4: {
+        val_1: 'White kitten',
+        val_2: 'Black kitten',
+        val_3: [ [ 'There is only', 'There are' ], ' ', '$count', ' ', [ 'kitten', 'kittens' ] ],
+    }
 };</pre>
 
             <br>
             <pre>text_1 = translate( dictionary_2, 'en-US', 'key_1' );
 text_2 = translate( dictionary_2, 'en-US', 'key_2', num );
-text_3 = translate( dictionary_2, 'en-US', 'key_3', num );</pre>
+text_3 = translate( dictionary_2, 'en-US', 'key_3', num );
+text_4_1 = translate( dictionary_2, 'en-US', 'key_4.val_1' );
+text_4_2 = translate( dictionary_2, 'en-US', 'key_4.val_2' );
+text_4_3 = translate( dictionary_2, 'en-US', 'key_4.val_3', num );</pre>
 
             <h3>Result</h3>
             <p id="en-key-1-value" ></p>
             <p id="en-key-2-value" ></p>
             <p id="en-key-3-value" ></p>
+
+            <h4>Nested values example:</h4>
+
+            <div style="padding-left: 15px" >
+                <p id="en-key-4-1-value" ></p>
+                <p id="en-key-4-2-value" ></p>
+                <p id="en-key-4-3-value" ></p>
+            </div>
+
         </section>
-        
+
 
     </div>
 </div>

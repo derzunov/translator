@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true,
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "plugins": [],
+    "extends": [
+        "eslint:recommended"
+    ],
+    "rules": {
+        "quotes": [ "error", "single" ],
+        "space-in-parens": [ "error", "always" ],
+        "object-curly-spacing": [ "error", "always", { "objectsInObjects": true } ],
+        "block-spacing": "error",
+        "array-bracket-spacing": [ "error", "always" ],
+        "computed-property-spacing": [ "error", "always" ],
+        "template-curly-spacing": [ "error", "always" ],
+        "arrow-spacing": [ "error", { "before": true, "after": true } ],
+        "space-before-blocks": [ "error", "always" ],
+        "no-console": [ "off" ],
+        "no-unused-vars": [ "warn" ],
+        "indent": [ "error", 4, { "SwitchCase": 1 } ],
+        "semi": [ "error", "never" ],
+        "space-before-function-paren": [ "error", "never" ],
+        "no-class-assign": "off",
+        "no-case-declarations": "off",
+        "no-useless-escape": "off",
+    }
+}
